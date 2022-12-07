@@ -1,0 +1,11 @@
+root::::::::
+daemon:*:::::::
+bin:*:::::::
+sys:*:::::::
+sync:*:::::::
+mail:*:::::::
+www-data:*:::::::
+operator:*:::::::
+nobody:*:::::::
+mysql:*:::::::
+postgres:*:::::::
