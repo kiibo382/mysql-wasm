@@ -1,7 +1,7 @@
 
-# Postgres Browser
+# MySQL Browser
 
-> Web shell to interact with [PostgreSQL](https://www.postgresql.org/) in the browser
+> Web shell to interact with [MySQL](https://www.mysql.com/) in the browser
 
 ## :zap: Getting started
 

@@ -1,8 +1,8 @@
-# :construction_worker: Buildroot
+# Buildroot
 
-> Buildroot configuration to build a v86 compatible minimal Linux system containing PostgreSQL
+> Buildroot configuration to build a v86 compatible minimal Linux system containing MySQL
 
-## :zap: Getting started
+## Getting started
 
 The goal of this build process is to produce a `filesystem` folder containing a full Linux filesystem that will be mounted and served by v86
 
