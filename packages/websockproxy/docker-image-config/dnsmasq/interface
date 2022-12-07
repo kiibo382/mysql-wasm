@@ -1,3 +1,0 @@
-listen-address=10.5.0.1
-interface=tap0
-bind-interfaces

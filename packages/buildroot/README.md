@@ -30,12 +30,12 @@ The goal of this build process is to produce a `filesystem` folder containing a 
   # Linux kernel config
   # IMPORTANT: If it's the first time you run this command,
   # exit the linux-menuconfig when it opens and copy the host file by running
-  # cp /pg-browser/board/pg-browser/linux.conf ./output/build/linux-5.17.15/.config
+  # cp /mysql-wasm/board/mysql-wasm/linux.conf ./output/build/linux-5.17.15/.config
   # then you can go back to "make linux-menuconfig" to edit this configuration
   # Launch menuconfig
   make linux-menuconfig
   # Save the changes back to the host
-  cp output/build/linux-5.17.15/.config /config/board/pg-browser/linux.conf
+  cp output/build/linux-5.17.15/.config /config/board/mysql-wasm/linux.conf
   ```
 
 2. Build the `filesystem` folder:
