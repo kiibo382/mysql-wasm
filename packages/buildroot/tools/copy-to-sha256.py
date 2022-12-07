@@ -10,23 +10,27 @@ import tarfile
 
 HASH_LENGTH = 8
 
+
 def hash_file(filename) -> str:
     with open(filename, "rb", buffering=0) as f:
         return hash_fileobj(f)
 
+
 def hash_fileobj(f) -> str:
     h = hashlib.sha256()
-    for b in iter(lambda: f.read(128*1024), b""):
+    for b in iter(lambda: f.read(128 * 1024), b""):
         h.update(b)
     return h.hexdigest()
+
 
 def main():
     logging.basicConfig(format="%(message)s")
     logger = logging.getLogger("copy")
     logger.setLevel(logging.DEBUG)
 
-    args = argparse.ArgumentParser(description="...",
-                                   formatter_class=argparse.RawTextHelpFormatter)
+    args = argparse.ArgumentParser(
+        description="...", formatter_class=argparse.RawTextHelpFormatter
+    )
     args.add_argument("from_path", metavar="from", help="from")
     args.add_argument("to_path", metavar="to", help="to")
 
@@ -45,6 +49,7 @@ def main():
     else:
         handle_dir(logger, from_path, to_path)
 
+
 def handle_dir(logger, from_path: str, to_path: str):
     def onerror(oserror):
         logger.warning(oserror)
@@ -60,7 +65,13 @@ def handle_dir(logger, from_path: str, to_path: str):
             mode = st.st_mode
 
             assert not stat.S_ISDIR(mode)
-            if stat.S_ISLNK(mode) or stat.S_ISCHR(mode) or stat.S_ISBLK(mode) or stat.S_ISFIFO(mode) or stat.S_ISSOCK(mode):
+            if (
+                stat.S_ISLNK(mode)
+                or stat.S_ISCHR(mode)
+                or stat.S_ISBLK(mode)
+                or stat.S_ISFIFO(mode)
+                or stat.S_ISSOCK(mode)
+            ):
                 continue
 
             file_hash = hash_file(absname)
@@ -72,6 +83,7 @@ def handle_dir(logger, from_path: str, to_path: str):
             else:
                 logger.info("cp {} {}".format(absname, to_abs))
                 shutil.copyfile(absname, to_abs)
+
 
 def handle_tar(logger, tar, to_path: str):
     for member in tar.getmembers():

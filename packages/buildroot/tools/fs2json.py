@@ -36,38 +36,46 @@ S_IFLNK = 0xA000
 S_IFREG = 0x8000
 S_IFDIR = 0x4000
 
+
 def hash_file(filename) -> str:
     with open(filename, "rb", buffering=0) as f:
         return hash_fileobj(f)
 
+
 def hash_fileobj(f) -> str:
     h = hashlib.sha256()
-    for b in iter(lambda: f.read(128*1024), b""):
+    for b in iter(lambda: f.read(128 * 1024), b""):
         h.update(b)
     return h.hexdigest()
+
 
 def main():
     logging.basicConfig(format="%(message)s")
     logger = logging.getLogger("fs2json")
     logger.setLevel(logging.DEBUG)
 
-    args = argparse.ArgumentParser(description="Create filesystem JSON. Example:\n"
-                                               "    ./fs2xml.py --exclude /boot/ --out fs.json /mnt/",
-                                   formatter_class=argparse.RawTextHelpFormatter
-                                  )
-    args.add_argument("--exclude",
-                      action="append",
-                      metavar="path",
-                      help="Path to exclude (relative to base path). Can be specified multiple times.")
-    args.add_argument("--out",
-                      metavar="out",
-                      nargs="?",
-                      type=argparse.FileType("w"),
-                      help="File to write to (defaults to stdout)",
-                      default=sys.stdout)
-    args.add_argument("path",
-                      metavar="path-or-tar",
-                      help="Base path or tar file to include in JSON")
+    args = argparse.ArgumentParser(
+        description="Create filesystem JSON. Example:\n"
+        "    ./fs2xml.py --exclude /boot/ --out fs.json /mnt/",
+        formatter_class=argparse.RawTextHelpFormatter,
+    )
+    args.add_argument(
+        "--exclude",
+        action="append",
+        metavar="path",
+        help="Path to exclude (relative to base path). Can be specified multiple times.",
+    )
+    args.add_argument(
+        "--out",
+        metavar="out",
+        nargs="?",
+        type=argparse.FileType("w"),
+        help="File to write to (defaults to stdout)",
+        default=sys.stdout,
+    )
+    args.add_argument(
+        "path", metavar="path-or-tar", help="Base path or tar file to include in JSON"
+    )
 
     args = args.parse_args()
 
@@ -101,7 +109,8 @@ def main():
     }
 
     logger.info("Creating json ...")
-    json.dump(result, args.out, check_circular=False, separators=(',', ':'))
+    json.dump(result, args.out, check_circular=False, separators=(",", ":"))
+
 
 def handle_dir(logger, path, exclude):
     path = path + "/"
@@ -199,7 +208,9 @@ def handle_dir(logger, path, exclude):
                 file_hash = hash_file(absname)
                 filename = file_hash[0:HASH_LENGTH] + ".bin"
                 existing = filename_to_hash.get(filename)
-                assert existing is None or existing == file_hash, "Collision in short hash (%s and %s)" % (existing, file_hash)
+                assert (
+                    existing is None or existing == file_hash
+                ), "Collision in short hash (%s and %s)" % (existing, file_hash)
                 filename_to_hash[filename] = file_hash
                 obj[IDX_FILENAME] = filename
 
@@ -211,6 +222,7 @@ def handle_dir(logger, path, exclude):
         prevpath = pathparts
 
     return (mainroot, total_size)
+
 
 def handle_tar(logger, tar):
     mainroot = []
@@ -242,7 +254,9 @@ def handle_tar(logger, tar):
             file_hash = hash_fileobj(f)
             filename = file_hash[0:HASH_LENGTH] + ".bin"
             existing = filename_to_hash.get(filename)
-            assert existing is None or existing == file_hash, "Collision in short hash (%s and %s)" % (existing, file_hash)
+            assert (
+                existing is None or existing == file_hash
+            ), "Collision in short hash (%s and %s)" % (existing, file_hash)
             filename_to_hash[filename] = file_hash
             obj[IDX_FILENAME] = filename
             if member.islnk():
