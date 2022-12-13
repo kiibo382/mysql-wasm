@@ -3,12 +3,12 @@
 
 > Web shell to interact with [MySQL](https://www.mysql.com/) in the browser
 
-## :zap: Getting started
+## Getting started
 
 1. Run `npx serve` and go to `http://localhost:3000`
 2. There is no step 2
 
-## :hammer_and_wrench: Update the filesystem
+## Update the filesystem
 
 1. Run the build process in the [buildroot](/packages/buildroot/README.md#getting-started) package
 
@@ -20,7 +20,7 @@
 
 3. [Cold boot and save a new snapshot](#cold-boot-and-saving-a-new-snapshot)
 
-## :snowflake: Cold boot and saving a new snapshot
+## Cold boot and saving a new snapshot
 
 1. Go the `http://localhost:3000?boot=true`
 

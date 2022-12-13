@@ -51,3 +51,6 @@ At this point you can go for a walk, it will take a bit of time :turtle:
 ...
 
 The `filesystem` folder should be available on the host at `build/filesystem`
+
+## Notes
+When you build a filesystem using a Mac with Apple M1 chip, it fails with Kernel Panic at boot time.
