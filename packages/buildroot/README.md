@@ -44,11 +44,7 @@ The goal of this build process is to produce a `filesystem` folder containing a 
 make
 ```
 
-...
-
-At this point you can go for a walk, it will take a bit of time :turtle:
-
-...
+(At this point you can go for a walk, it will take a bit of time.)
 
 The `filesystem` folder should be available on the host at `build/filesystem`
 
